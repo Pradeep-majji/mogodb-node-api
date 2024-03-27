@@ -12,9 +12,9 @@ const {
 const router = express.Router();
 
 // create a user
-router.post("/register", createUser);
+router.post("/api/register", createUser);
 
-router.post("/login", verifyUser);
+router.post("/api/login", verifyUser);
 
 // get all users
 router.get("/", getUsers);
