@@ -34,7 +34,7 @@ const createUser = async (req, res, next) => {
     await newUser.save();
 
     // Generate JWT token
-    const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ email:newUser.email }, process.env.JWT_SECRET, {
       expiresIn: "1h" // Token expires in 1 hour
     });
 
@@ -67,7 +67,7 @@ const verifyUser = async (req, res) => {
     }
 
     // If credentials are valid, generate JWT token with firstName in the payload
-    const token = jwt.sign({ userId: user._id, firstName: user.firstName }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign({ email:user.email , firstName: user.firstName }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
     // Return the user data along with the token
     res.status(200).json({ token, firstName: user.firstName, lastName: user.lastName, email: user.email  });
