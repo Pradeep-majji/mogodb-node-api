@@ -40,7 +40,9 @@ const createUser = async (req, res, next) => {
 
     res.status(201).json({
       success: true,
-      user: newUser,
+      firstName: newUser.firstName,
+      lastName: newUser.lastName,
+      email: newUser.email,
       token: token
     });
   } catch (error) {
@@ -68,7 +70,7 @@ const verifyUser = async (req, res) => {
     const token = jwt.sign({ userId: user._id, firstName: user.firstName }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
     // Return the user data along with the token
-    res.status(200).json({ token, user });
+    res.status(200).json({ token, firstName: user.firstName, lastName: user.lastName, email: user.email  });
   } catch (error) {
     console.error("Error logging in:", error);
     res.status(500).json({ error: "Internal server error" });
